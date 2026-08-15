@@ -1,163 +1,164 @@
-Documentação da linguagem de programação Bind
+Bind Programming Language Documentation
 
-Bind é uma linguagem orientada à linhas, onde cada linha deve ser uma instrução
+Bind is a line-oriented language, where each line must be an instruction.
 
-INSTRUÇÕES
+INSTRUCTIONS
 
-Print e Println:
-Println imprime uma variavel, string ou inteiro no terminal, sendo uma string ou um inteiro. Possui uma quebra de linha ao final.
-Print executa a mesma função, mas não possui uma quebra de linha no final.
+Print and Println:
+Println prints a variable, string, or integer to the terminal (string or integer). It includes a line break at the end.
+Print performs the same function, but without a line break at the end.
 
-println <conteudo>
-print <conteudo>
+println <content>
+print <content>
 
 Let:
-Define uma variavel, sendo um numero inteiro ou um texto (string)
+Defines a variable, which can be an integer or a text(string).
 
-let <nome_da_varaivel> = <valor>
+let <variable_name> = <value>
 
-O let também pode ser utilizado sem definir um valor inicial. Isso é util caso você deseje colocar o resultado de um input na variavel
+Let can also be used without defining an initial value. This is useful if you want to store the result of an input in the variable.
 
-let <nome_da_variavel> : <tipo> (string ou int)
+let <variable_name> : <type> (string or int)
 
 Set:
-Altera o valor de uma variavel. Note que a variavel precisa ser declarada anteriormente é não é possivel mutar seu tipo
+Changes the value of a variable. Note that the variable must be declared beforehand and its type cannot be mutated.
 
-set <nome_da_varaivel> = <valor>
+set <variable_name> = <value>
 
 Label:
-Define um marcador no codigo onde uma instrução de "goto" pode pular para ela
+Defines a marker in the code that a goto instruction can jump to.
 
-label <nome_da_label>
+label <label_name>
 
 Goto:
-Pula a execução do codigo para uma label já existente
+Jumps the code execution to an existing label.
 
-goto <nome_da_label>
+goto <label_name>
 
 Dynamic Label:
-Define uma label que pode ser alterada durante a execução do codigo. Use bind para definir uma label que será usada para representar a dy_label
+Defines a label that can be changed during code execution. Use bind to define a label that will represent the dy_label.
 
-dy_label <nome_da_dy_label>
+dy_label <dy_label_name>
 
 Bind:
-Define para qual label convencional uma Dynamic Label apontará
+Defines which conventional label a Dynamic Label will point to.
 
-bind <nome_da_dy_label> -> <nome_da_label>
+bind <dy_label_name> -> <label_name>
 
 If:
-Compara dois valores ou variaveis numericas. Caso a comparação seja verdadeira, é usado "goto" para ir à uma label especifica
+Compares two numeric values or variables. If the comparison is true, it uses goto to jump to a specific label.
 
-if <valor> <comparador> <valor> goto <nome_da_label>
+if <value> <comparator> <value> goto <label_name>
 
-Possiveis comparadores:
+Possible comparators:
 
-== Igual à
-!= Diferente de
-> Maior que
-< Menor que
->= Maior ou igual à
-<= Menor ou igual à
+== Equal to
+!= Different from
+> Greater than
+< Less than
+>= Greater than or equal to
+<= Less than or equal to
 
 Add:
-Soma dois valores ou variaveis numericas e adiciona à uma variavel o resultado
+Adds two numeric values or variables and stores the result in a variable.
 
-add <valor1> <valor2> -> <resultado> ( resultado = valor1 + valor2 )
+add <value1> <value2> -> <result>   (result = value1 + value2)
 
 Sub:
-Subtrai dois valores ou variaveis numericas e adiciona à uma variavel o resultado
+Subtracts two numeric values or variables and stores the result in a variable.
 
-sub <valor1> <valor2> -> <resultado> ( resultado = valor1 - valor2 )
+sub <value1> <value2> -> <result>   (result = value1 - value2)
 
 Clear:
-Limpa o terminal
+Clears the terminal.
 
 clear
 
 Pause:
-Pause o terminal
+Pauses the terminal.
 
 pause
 
-Comentarios:
-Use "//" para definir um comentario. Note que o simbolo de comentarios (//) precisa estar separado por um espaço entre o comentario e ele não pode ser colocado após uma linha de codigo.
+Comments:
+Use // to define a comment. Note that the comment symbol (//) must be separated by a space from the comment , and it cannot be placed after a line of code.
 
-// Exemplo de comentario
+// Example of a comment
 
 Color:
-Define uma cor para usar nas funções print e println
+Defines a color to use in the print and println functions.
 
-color <cor_desejada>
+color <desired_color>
 
-Possiveis cores:
+Possible colors:
 
-black (preto)
-red (vermelho)
-green (verde)
-yellow (amarelo)
-blue (azul)
-magenta (magenta)
-cyan (ciano)
-white (branco)
+black
+red
+green
+yellow
+blue
+magenta
+cyan
+white
 
 Title:
-Define um titulo para o terminal da execução. Note que o titulo precisa ser uma string
+Defines a title for the execution terminal. Note that the title must be a string.
 
-title <titulo_desejado>
+title <desired_title>
 
 Delay:
-Pausa a execução do codigo por uma quantidade de tempo determinada (ms)
+Pauses code execution for a specified amount of time (in milliseconds).
 
-delay <tempo_delay_em_milisegundos>
+delay <delay_time_in_milliseconds>
 
 Input:
-Pausa a execução do codigo e espera por um input do usuario. Insere o que o usuario digitou em uma variavel string
+Pauses code execution and waits for user input. Inserts what the user typed into a string variable.
 
-input -> <variavel>
+input -> <variable>
 
-EXEMPLO DE CODIGOS
 
-Template de codigo padrão recomendado:
 
+CODE EXAMPLES
+
+Recommended standard code template:
 
 clear
 goto main
 
-// FUNÇÕES
+// FUNCTIONS
 
 label main
 
-// CODIGO
+// CODE
 
 pause
 
 
-Função simples:
+Simple Function:
 
 clear
 goto main
 
-dy_label end_printar_oi
-label func_printar_oi
+dy_label end_print_hi
+label func_print_hi
 
-println "Oi"
+println "Hi"
 
-goto end_printar_oi
+goto end_print_hi
 
 label main
 
 
-// Primeira chamada da função
+// First call of the function
 
-bind end_printar_oi -> chamada1
-goto func_printar_oi
-label chamada1
+bind end_print_hi -> call1
+goto func_print_hi
+label call1
 
 
-// Segunda chamada da função
+// Second call of the function
 
-bind end_printar_oi -> chamada2
-goto func_printar_oi
-label chamada2
+bind end_print_hi -> call2
+goto func_print_hi
+label call2
 
 pause

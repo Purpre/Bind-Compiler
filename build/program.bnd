@@ -1,0 +1,10 @@
+clear
+goto main
+
+// FUNCTIONS
+
+label main
+
+// CODE
+
+pause
