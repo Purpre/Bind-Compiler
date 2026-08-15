@@ -1,0 +1,135 @@
+using utf8
+clear
+title "Bind - Missao Dynamic Labels"
+color cyan
+
+// Declaracao de todas as variaveis no inicio
+let cont = 0
+let a = 0
+let b = 0
+let i = 0
+let temp = 0
+let n = 0
+
+goto main
+
+// ============================================================
+// FUNCAO: imprimir_linha (reutilizavel)
+// ============================================================
+dy_label end_imprimir_linha
+label imprimir_linha
+println "----------------------------------------"
+goto end_imprimir_linha
+
+// ============================================================
+// FUNCAO: imprimir_titulo (reutilizavel)
+// ============================================================
+dy_label end_imprimir_titulo
+label imprimir_titulo
+color yellow
+println ">>> MISSAO DYNAMIC LABELS INICIADA <<<"
+color cyan
+goto end_imprimir_titulo
+
+// ============================================================
+// FUNCAO: imprimir_numero (recebe o valor em 'n')
+// ============================================================
+dy_label end_imprimir_numero
+label imprimir_numero
+color green
+print "-> Numero: "
+println n
+color cyan
+goto end_imprimir_numero
+
+// ============================================================
+// FUNCAO: countdown (de 5 ate 0)
+// ============================================================
+dy_label end_countdown
+label countdown
+set cont = 5
+
+label loop_countdown
+color magenta
+print "Contagem regressiva: "
+println cont
+delay 600
+
+if cont == 0 goto fim_countdown
+sub cont 1 -> cont
+goto loop_countdown
+
+label fim_countdown
+color red
+println ">>> LANCAMENTO! <<<"
+color cyan
+goto end_countdown
+
+// ============================================================
+// FUNCAO: fibonacci (imprime os 10 primeiros)
+// ============================================================
+dy_label end_fibonacci
+label fibonacci
+set a = 0
+set b = 1
+set i = 1
+set temp = 0
+set n = 0
+
+color yellow
+println "Sequencia de Fibonacci:"
+color white
+
+label loop_fib
+set n = a
+bind end_imprimir_numero -> ret_fib
+goto imprimir_numero
+label ret_fib
+
+add a b -> temp
+set a = b
+set b = temp
+add i 1 -> i
+
+if i > 10 goto fim_fib
+goto loop_fib
+
+label fim_fib
+color cyan
+goto end_fibonacci
+
+// ============================================================
+// PROGRAMA PRINCIPAL
+// ============================================================
+label main
+bind end_imprimir_titulo -> ret1
+goto imprimir_titulo
+label ret1
+
+bind end_imprimir_linha -> ret2
+goto imprimir_linha
+label ret2
+
+// Chamada da countdown
+bind end_countdown -> apos_countdown
+goto countdown
+label apos_countdown
+
+bind end_imprimir_linha -> ret3
+goto imprimir_linha
+label ret3
+
+// Chamada da Fibonacci
+bind end_fibonacci -> apos_fib
+goto fibonacci
+label apos_fib
+
+bind end_imprimir_linha -> ret4
+goto imprimir_linha
+label ret4
+
+color green
+println "Missao concluida com sucesso!"
+color white
+println "Dynamic Labels exploradas: reutilizacao de funcoes + retornos dinamicos"
+pause

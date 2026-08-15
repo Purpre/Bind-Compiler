@@ -1,0 +1,10 @@
+# ninja log v7
+21	45	8084662628955491	C:/C++Projects/bind/build/CMakeFiles/cmake.verify_globs	97a99dcabd64d4e9
+79	546	8084657907434305	CMakeFiles/Bind.dir/src/main.cpp.obj	1ea49a36264ab59f
+700	800	8084662635754100	Bind.exe	cb0f49a8d0a5c6f5
+67	112	8081891311915090	CMakeFiles/Bind.dir/src/parser.cpp.obj	8fd3e0e68ca26b1f
+75	748	8084657907401721	CMakeFiles/Bind.dir/src/lexer.cpp.obj	708fe623907b9537
+47	700	8084662629219598	CMakeFiles/Bind.dir/src/codeGenerator.cpp.obj	be6f1b9b24bc611d
+28	52	8084666163406681	C:/C++Projects/bind/build/CMakeFiles/cmake.verify_globs	97a99dcabd64d4e9
+55	715	8084666163666694	CMakeFiles/Bind.dir/src/codeGenerator.cpp.obj	be6f1b9b24bc611d
+715	815	8084666170269796	Bind.exe	cb0f49a8d0a5c6f5

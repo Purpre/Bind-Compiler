@@ -1,0 +1,7 @@
+{
+	"InstallScripts" : 
+	[
+		"C:/C++Projects/bind/build/cmake_install.cmake"
+	],
+	"Parallel" : false
+}

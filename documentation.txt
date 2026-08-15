@@ -1,0 +1,163 @@
+Documentação da linguagem de programação Bind
+
+Bind é uma linguagem orientada à linhas, onde cada linha deve ser uma instrução
+
+INSTRUÇÕES
+
+Print e Println:
+Println imprime uma variavel, string ou inteiro no terminal, sendo uma string ou um inteiro. Possui uma quebra de linha ao final.
+Print executa a mesma função, mas não possui uma quebra de linha no final.
+
+println <conteudo>
+print <conteudo>
+
+Let:
+Define uma variavel, sendo um numero inteiro ou um texto (string)
+
+let <nome_da_varaivel> = <valor>
+
+O let também pode ser utilizado sem definir um valor inicial. Isso é util caso você deseje colocar o resultado de um input na variavel
+
+let <nome_da_variavel> : <tipo> (string ou int)
+
+Set:
+Altera o valor de uma variavel. Note que a variavel precisa ser declarada anteriormente é não é possivel mutar seu tipo
+
+set <nome_da_varaivel> = <valor>
+
+Label:
+Define um marcador no codigo onde uma instrução de "goto" pode pular para ela
+
+label <nome_da_label>
+
+Goto:
+Pula a execução do codigo para uma label já existente
+
+goto <nome_da_label>
+
+Dynamic Label:
+Define uma label que pode ser alterada durante a execução do codigo. Use bind para definir uma label que será usada para representar a dy_label
+
+dy_label <nome_da_dy_label>
+
+Bind:
+Define para qual label convencional uma Dynamic Label apontará
+
+bind <nome_da_dy_label> -> <nome_da_label>
+
+If:
+Compara dois valores ou variaveis numericas. Caso a comparação seja verdadeira, é usado "goto" para ir à uma label especifica
+
+if <valor> <comparador> <valor> goto <nome_da_label>
+
+Possiveis comparadores:
+
+== Igual à
+!= Diferente de
+> Maior que
+< Menor que
+>= Maior ou igual à
+<= Menor ou igual à
+
+Add:
+Soma dois valores ou variaveis numericas e adiciona à uma variavel o resultado
+
+add <valor1> <valor2> -> <resultado> ( resultado = valor1 + valor2 )
+
+Sub:
+Subtrai dois valores ou variaveis numericas e adiciona à uma variavel o resultado
+
+sub <valor1> <valor2> -> <resultado> ( resultado = valor1 - valor2 )
+
+Clear:
+Limpa o terminal
+
+clear
+
+Pause:
+Pause o terminal
+
+pause
+
+Comentarios:
+Use "//" para definir um comentario. Note que o simbolo de comentarios (//) precisa estar separado por um espaço entre o comentario e ele não pode ser colocado após uma linha de codigo.
+
+// Exemplo de comentario
+
+Color:
+Define uma cor para usar nas funções print e println
+
+color <cor_desejada>
+
+Possiveis cores:
+
+black (preto)
+red (vermelho)
+green (verde)
+yellow (amarelo)
+blue (azul)
+magenta (magenta)
+cyan (ciano)
+white (branco)
+
+Title:
+Define um titulo para o terminal da execução. Note que o titulo precisa ser uma string
+
+title <titulo_desejado>
+
+Delay:
+Pausa a execução do codigo por uma quantidade de tempo determinada (ms)
+
+delay <tempo_delay_em_milisegundos>
+
+Input:
+Pausa a execução do codigo e espera por um input do usuario. Insere o que o usuario digitou em uma variavel string
+
+input -> <variavel>
+
+EXEMPLO DE CODIGOS
+
+Template de codigo padrão recomendado:
+
+
+clear
+goto main
+
+// FUNÇÕES
+
+label main
+
+// CODIGO
+
+pause
+
+
+Função simples:
+
+clear
+goto main
+
+dy_label end_printar_oi
+label func_printar_oi
+
+println "Oi"
+
+goto end_printar_oi
+
+label main
+
+
+// Primeira chamada da função
+
+bind end_printar_oi -> chamada1
+goto func_printar_oi
+label chamada1
+
+
+// Segunda chamada da função
+
+bind end_printar_oi -> chamada2
+goto func_printar_oi
+label chamada2
+
+pause
