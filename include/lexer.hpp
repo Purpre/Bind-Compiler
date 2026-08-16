@@ -40,7 +40,6 @@ struct Token
     Tokens type;
 };
 
-
 extern std::unordered_map<std::string, Tokens> keywords;
 
 class Lexer

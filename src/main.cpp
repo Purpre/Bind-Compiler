@@ -4,6 +4,8 @@
 #include <codeGenerator.hpp>
 #include <stdio.h>
 
+using std::cout, std::string;
+
 int main(int argc, char *argv[])
 {
     if (!(argc > 1))
@@ -12,11 +14,11 @@ int main(int argc, char *argv[])
     std::ifstream program(argv[1]);
     if (!program.is_open())
     {
-        std::cout << "Could not find \"" << argv[1] << "\"\n";
+        cout << "Could not find \"" << argv[1] << "\"\n";
         return 1;
     }
 
-    std::string line;
+    string line;
 
     std::ofstream compiledProgram("program.c");
     if (!compiledProgram.is_open())

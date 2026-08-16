@@ -1,8 +1,10 @@
 #include <lexer.hpp>
 
-std::unordered_map<std::string, Tokens> Lexer::variables;
+using std::cout, std::string;
 
-std::unordered_map<std::string, Tokens> keywords = {
+std::unordered_map<string, Tokens> Lexer::variables;
+
+std::unordered_map<string, Tokens> keywords = {
     {"print", PRINT},
     {"println", PRINT},
     {"=", EQUALS},
@@ -24,10 +26,10 @@ std::unordered_map<std::string, Tokens> keywords = {
     {"delay", DELAY},
     {"input", INPUT}};
 
-std::vector<std::string> splitString(std::string *text)
+std::vector<string> splitString(string *text)
 {
-    std::vector<std::string> strings;
-    std::string buffer;
+    std::vector<string> strings;
+    string buffer;
 
     for (char c : *text)
     {
@@ -49,12 +51,12 @@ std::vector<std::string> splitString(std::string *text)
     return strings;
 }
 
-std::vector<std::string> concatStrings(const std::vector<std::string> &rawSplit)
+std::vector<string> concatStrings(const std::vector<string> &rawSplit)
 {
-    std::vector<std::string> result;
+    std::vector<string> result;
 
     bool waitingForQuote = false;
-    std::string buffer;
+    string buffer;
 
     for (const auto &text : rawSplit)
     {
@@ -81,11 +83,11 @@ std::vector<std::string> concatStrings(const std::vector<std::string> &rawSplit)
     return result;
 }
 
-Token classifyToken(std::string text)
+Token classifyToken(string text)
 {
     if (text.empty())
     {
-        std::cout << "TOKEN VAZIO!\n";
+        cout << "Empty Token\n";
         return Token("", IDENTIFIER);
     }
     if (text.at(0) == '"' && text.at(text.size() - 1) == '"')
@@ -102,7 +104,7 @@ Token classifyToken(std::string text)
         return Token(text, IDENTIFIER);
 }
 
-std::vector<Token> Lexer::lex(std::string line)
+std::vector<Token> Lexer::lex(string line)
 {
     std::vector<Token> instructions;
 

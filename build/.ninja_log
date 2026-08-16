@@ -1,9 +1,12 @@
 # ninja log v7
-28	52	8084666163406681	C:/C++Projects/bind/build/CMakeFiles/cmake.verify_globs	97a99dcabd64d4e9
+45	70	8085307445685411	C:/C++Projects/bind/build/CMakeFiles/cmake.verify_globs	97a99dcabd64d4e9
 79	546	8084657907434305	CMakeFiles/Bind.dir/src/main.cpp.obj	1ea49a36264ab59f
-715	815	8084666170269796	Bind.exe	cb0f49a8d0a5c6f5
+72	198	8085307445955401	Bind.exe	cb0f49a8d0a5c6f5
 67	112	8081891311915090	CMakeFiles/Bind.dir/src/parser.cpp.obj	8fd3e0e68ca26b1f
 75	748	8084657907401721	CMakeFiles/Bind.dir/src/lexer.cpp.obj	708fe623907b9537
 55	715	8084666163666694	CMakeFiles/Bind.dir/src/codeGenerator.cpp.obj	be6f1b9b24bc611d
-45	70	8085307445685411	C:/C++Projects/bind/build/CMakeFiles/cmake.verify_globs	97a99dcabd64d4e9
-72	198	8085307445955401	Bind.exe	cb0f49a8d0a5c6f5
+35	62	8085319308949461	C:/C++Projects/bind/build/CMakeFiles/cmake.verify_globs	97a99dcabd64d4e9
+72	553	8085319309322534	CMakeFiles/Bind.dir/src/main.cpp.obj	1ea49a36264ab59f
+69	755	8085319309291766	CMakeFiles/Bind.dir/src/lexer.cpp.obj	708fe623907b9537
+65	808	8085319309251785	CMakeFiles/Bind.dir/src/codeGenerator.cpp.obj	be6f1b9b24bc611d
+808	918	8085319316687089	Bind.exe	cb0f49a8d0a5c6f5
