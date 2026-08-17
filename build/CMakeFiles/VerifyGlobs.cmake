@@ -4,7 +4,8 @@
 # SOURCES at CMakeLists.txt:5 (file)
 file(GLOB_RECURSE NEW_GLOB LIST_DIRECTORIES false "C:/C++Projects/bind/src/*.cpp")
 set(OLD_GLOB
-  "C:/C++Projects/bind/src/codeGenerator.cpp"
+  "C:/C++Projects/bind/src/code_generation/codeGenerator.cpp"
+  "C:/C++Projects/bind/src/code_generation/implementations.cpp"
   "C:/C++Projects/bind/src/lexer.cpp"
   "C:/C++Projects/bind/src/main.cpp"
   )

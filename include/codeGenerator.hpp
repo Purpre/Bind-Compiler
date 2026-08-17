@@ -1,7 +1,8 @@
 #pragma once
-#include <string>
 #include <vector>
 #include <algorithm>
+#include <implementations.hpp>
+#include <functional>
 #include <lexer.hpp>
 
 struct Dy_label
@@ -22,6 +23,7 @@ struct CompilerContext
 class CodeGenerator
 {
 public:
+    static Dy_label *findDyLabel(const std::string &name);
     static CompilerContext context;
     static std::string generate(const std::vector<std::vector<Token>> &tokens);
 };

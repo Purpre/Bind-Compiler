@@ -44,11 +44,17 @@ cmake_ninja_workdir = C$:/C++Projects/bind/build/
 
 build cmake_object_order_depends_target_Bind: phony || .
 
-build CMakeFiles/Bind.dir/src/codeGenerator.cpp.obj: CXX_COMPILER__Bind_unscanned_ C$:/C++Projects/bind/src/codeGenerator.cpp || cmake_object_order_depends_target_Bind
-  DEP_FILE = CMakeFiles\Bind.dir\src\codeGenerator.cpp.obj.d
+build CMakeFiles/Bind.dir/src/code_generation/codeGenerator.cpp.obj: CXX_COMPILER__Bind_unscanned_ C$:/C++Projects/bind/src/code_generation/codeGenerator.cpp || cmake_object_order_depends_target_Bind
+  DEP_FILE = CMakeFiles\Bind.dir\src\code_generation\codeGenerator.cpp.obj.d
   INCLUDES = -IC:/C++Projects/bind/include
   OBJECT_DIR = CMakeFiles\Bind.dir
-  OBJECT_FILE_DIR = CMakeFiles\Bind.dir\src
+  OBJECT_FILE_DIR = CMakeFiles\Bind.dir\src\code_generation
+
+build CMakeFiles/Bind.dir/src/code_generation/implementations.cpp.obj: CXX_COMPILER__Bind_unscanned_ C$:/C++Projects/bind/src/code_generation/implementations.cpp || cmake_object_order_depends_target_Bind
+  DEP_FILE = CMakeFiles\Bind.dir\src\code_generation\implementations.cpp.obj.d
+  INCLUDES = -IC:/C++Projects/bind/include
+  OBJECT_DIR = CMakeFiles\Bind.dir
+  OBJECT_FILE_DIR = CMakeFiles\Bind.dir\src\code_generation
 
 build CMakeFiles/Bind.dir/src/lexer.cpp.obj: CXX_COMPILER__Bind_unscanned_ C$:/C++Projects/bind/src/lexer.cpp || cmake_object_order_depends_target_Bind
   DEP_FILE = CMakeFiles\Bind.dir\src\lexer.cpp.obj.d
@@ -70,7 +76,7 @@ build CMakeFiles/Bind.dir/src/main.cpp.obj: CXX_COMPILER__Bind_unscanned_ C$:/C+
 #############################################
 # Link the executable Bind.exe
 
-build Bind.exe: CXX_EXECUTABLE_LINKER__Bind_ CMakeFiles/Bind.dir/src/codeGenerator.cpp.obj CMakeFiles/Bind.dir/src/lexer.cpp.obj CMakeFiles/Bind.dir/src/main.cpp.obj
+build Bind.exe: CXX_EXECUTABLE_LINKER__Bind_ CMakeFiles/Bind.dir/src/code_generation/codeGenerator.cpp.obj CMakeFiles/Bind.dir/src/code_generation/implementations.cpp.obj CMakeFiles/Bind.dir/src/lexer.cpp.obj CMakeFiles/Bind.dir/src/main.cpp.obj
   LINK_LIBRARIES = -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
   OBJECT_DIR = CMakeFiles\Bind.dir
   POST_BUILD = cd .
