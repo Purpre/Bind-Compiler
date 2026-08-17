@@ -14,7 +14,9 @@ struct Dy_label
 
 struct CompilerContext
 {
+    std::vector<std::string> labels;
     std::vector<Dy_label> dy_labels;
+    std::unordered_map<std::string, Tokens> variables;
 };
 
 class CodeGenerator

@@ -25,22 +25,17 @@ string generateLine(const std::vector<Token> tokens)
     {
     case PRINT:
     {
-        if (tokens.size() < 2)
+        if (tokens.size() != 2)
         {
-            cerr << "Print/println needs something to be printed.\n";
-            return "";
-        }
-        if (tokens.size() > 2)
-        {
-            cerr << "Print/println only accept 1 string/int/var to be printed.\n";
+            cerr << tokens[0].content + " is used in this way:\n" + tokens[0].content + " <content>\n";
             return "";
         }
         Tokens type;
 
         if (tokens[1].type == IDENTIFIER)
         {
-            auto it = Lexer::variables.find(tokens[1].content);
-            if (it == Lexer::variables.end())
+            auto it = CodeGenerator::context.variables.find(tokens[1].content);
+            if (it == CodeGenerator::context.variables.end())
             {
                 cerr << "Error: variable '"
                      << tokens[1].content
@@ -70,26 +65,65 @@ string generateLine(const std::vector<Token> tokens)
         if (tokens[1].type == IDENTIFIER && tokens[2].type == EQUALS && (tokens[3].type == STRING || tokens[3].type == INT))
         {
             Tokens type = tokens[3].type;
-            Lexer::variables.emplace(tokens[1].content, type == INT ? INT : STRING);
-            return (type == INT ? "int " : "char* ") + tokens[1].content + " = " + (type == STRING ? "\"" + tokens[3].content + "\"" : tokens[3].content) + ";\n";
+
+            if (CodeGenerator::context.variables.find(tokens[1].content) != CodeGenerator::context.variables.end()) // Verify if the variable has been already declared
+            {
+                cerr << "Can´t declare the same variable (" + tokens[1].content + ") twice.\n";
+                return "";
+            }
+
+            CodeGenerator::context.variables.emplace(tokens[1].content, type == INT ? INT : STRING);
+            return (type == INT ? "int " : "char ") + tokens[1].content + (type == INT ? "int = " : "[1024] = ") + (type == STRING ? "\"" + tokens[3].content + "\"" : tokens[3].content) + ";\n";
         }
-        else if (tokens[1].type == IDENTIFIER)
+        else if (tokens[1].type == IDENTIFIER && (tokens[3].content == "string" || tokens[3].content == "int"))
         {
             Tokens type = (tokens[3].content == "string" ? STRING : INT);
-            Lexer::variables.emplace(tokens[1].content, type == INT ? INT : STRING);
+
+            if (CodeGenerator::context.variables.find(tokens[1].content) != CodeGenerator::context.variables.end()) // Verify if the variable has been already declared
+            {
+                cerr << "Can´t declare the same variable (" + tokens[1].content + ") twice.\n";
+                return "";
+            }
+
+            CodeGenerator::context.variables.emplace(tokens[1].content, type == INT ? INT : STRING);
             return (type == INT ? "int " : "char ") + tokens[1].content + (type == INT ? ";\n" : "[1024];\n");
         }
         break;
     }
     case SET:
     {
-        return tokens[1].content + " = " + (tokens[3].type == STRING ? ("\"" + tokens[3].content + "\"" + ";\n") : tokens[3].content + ";\n");
+        if (CodeGenerator::context.variables.find(tokens[1].content) == CodeGenerator::context.variables.end()) // Checks if the variable exists
+        {
+            cerr << "The variable must exist for you to assign something to it.\n";
+            return "";
+        }
+
+        Tokens variableType = CodeGenerator::context.variables.find(tokens[1].content)->second;
+        if (variableType == INT)
+            return tokens[1].content + " = " + tokens[3].content + ";\n";
+        else if (variableType == STRING)
+            return "strcpy(" + tokens[1].content + ",\"" + tokens[3].content + "\");\n";
         break;
     }
     case LABEL:
     {
+        if (tokens.size() != 2)
+        {
+            cerr << "Label is used in this way:\nlabel <label_name>\n";
+            return "";
+        }
         if (tokens[1].type == IDENTIFIER)
-            return tokens[1].content + ":\n";
+        {
+            if (std::find(CodeGenerator::context.labels.begin(), CodeGenerator::context.labels.end(), tokens[1].content) != CodeGenerator::context.labels.end())
+            {
+                return tokens[1].content + ":\n";
+            }
+            else
+            {
+                cerr << "Unknown error\n";
+                return "";
+            }
+        }
         break;
     }
     case GOTO:
@@ -110,7 +144,14 @@ string generateLine(const std::vector<Token> tokens)
                 return ifStatement;
             }
             else
+            {
+                if (std::find(CodeGenerator::context.labels.begin(), CodeGenerator::context.labels.end(), tokens[1].content) == CodeGenerator::context.labels.end())
+                {
+                    cerr << "Label " + tokens[1].content + " doesn´t exist.\n";
+                    return "";
+                }
                 return "goto " + tokens[1].content + ";\n";
+            }
         }
         break;
     }
@@ -216,22 +257,32 @@ string generateLine(const std::vector<Token> tokens)
 
 string CodeGenerator::generate(const std::vector<std::vector<Token>> &tokens)
 {
-    string program = "#include <stdio.h>\n#include <stdlib.h>\n#include <locale.h>\n#ifdef _WIN32\n#include <windows.h>\n#endif\nint main(){\nchar* __global_color__ = \"\033[0m\";\n";
+    // Default includes and variables
+    string program = "#include <stdio.h>\n#include <stdlib.h>\n#include <locale.h>\n#include <string.h>\n#ifdef _WIN32\n#include <windows.h>\n#endif\nint main(){\nchar* __global_color__ = \"\033[0m\";\n";
 
     for (const auto &line : tokens)
     {
-        if (line[0].type == DY_LABEL)
+        if (line[0].type == DY_LABEL) // Pushes all Dy_labels to the context
             CodeGenerator::context.dy_labels.push_back(Dy_label(line[1].content));
-
-        if (line[0].type == BIND && line[2].content == "->")
+            
+        if (line[0].type == BIND && line[2].content == "->") // Add binds to respective dy_labels
         {
             Dy_label &dy_label = *findDyLabel(line[1].content);
-
             dy_label.binds.push_back(line[3].content);
         }
+        if (line[0].type == LABEL && line[1].type == IDENTIFIER)
+        {
+            if (std::find(CodeGenerator::context.labels.begin(), CodeGenerator::context.labels.end(), line[1].content) == CodeGenerator::context.labels.end())
+            {
+                CodeGenerator::context.labels.push_back(line[1].content);
+            }
+            else
+            {
+                cerr << "You can´t delcare a label (" + line[1].content + ") twice.\n";
+                return "int main(){\n// Pre-compiling error\n}";
+            }
+        }
     }
-
-    // for (const auto &dy_label : CodeGenerator::context.dy_labels) for (const auto &bind : dy_label.binds) cout << bind << "\n";
 
     for (const auto &line : tokens)
         program += generateLine(line);

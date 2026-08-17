@@ -2,8 +2,6 @@
 
 using std::cout, std::string;
 
-std::unordered_map<string, Tokens> Lexer::variables;
-
 std::unordered_map<string, Tokens> keywords = {
     {"print", PRINT},
     {"println", PRINT},

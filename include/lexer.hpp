@@ -45,6 +45,5 @@ extern std::unordered_map<std::string, Tokens> keywords;
 class Lexer
 {
 public:
-    static std::unordered_map<std::string, Tokens> variables;
     static std::vector<Token> lex(std::string line);
 };
